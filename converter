@@ -1,0 +1,34 @@
+; Este programa fue creado para convertir lo que se escriba en la línea "text" a mayúsculas. 
+
+	JMP start
+
+text:	DB "hola soy brian"
+		DB 0
+
+start:
+	MOV C, text     
+	MOV D, 232      
+
+loop:
+	MOV A, [C]      ; cargar carácter
+	CMP A, 0
+	JZ end          ; si es 0, fin
+
+	MOV B, A        
+	SUB A, 97       ; A - 'a'
+
+	MOV A, B
+	SUB A, 32       ; convertir a mayúscula
+	JMP store
+
+skip:
+	MOV A, B        ; restaurar sin convertir
+
+store:
+	MOV [D], A      ; escribir en salida
+	INC C
+	INC D
+	JMP loop
+
+end:
+	HLT
